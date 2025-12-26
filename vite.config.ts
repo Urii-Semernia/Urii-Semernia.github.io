@@ -8,6 +8,24 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        proxy: {
+          // Proxy API calls and uploaded assets to local backend during development
+          '/api': {
+            target: 'http://localhost:5050',
+            changeOrigin: true,
+            secure: false,
+          },
+          '/uploads': {
+            target: 'http://localhost:5050',
+            changeOrigin: true,
+            secure: false,
+          },
+          '/profile.jpg': {
+            target: 'http://localhost:5050',
+            changeOrigin: true,
+            secure: false,
+          }
+        },
       },
       plugins: [react()],
       define: {

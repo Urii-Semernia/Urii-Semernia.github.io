@@ -8,22 +8,48 @@ const Hero: React.FC = () => {
 
   // Load image from localStorage on mount
   useEffect(() => {
-    const savedImage = localStorage.getItem('urii_portfolio_photo');
-    if (savedImage) {
-      setProfileImage(savedImage);
-    }
+    // First try to fetch persisted profile from backend
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch('/api/profile');
+        if (res.ok) {
+          const data = await res.json();
+          setProfileImage(data.url);
+          return;
+        }
+      } catch (e) {
+        // ignore
+      }
+      // Fallback to default profile.jpg
+      setProfileImage('/profile.jpg');
+    };
+    fetchProfile();
   }, []);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setProfileImage(base64String);
-        localStorage.setItem('urii_portfolio_photo', base64String);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // upload to backend
+    try {
+      const form = new FormData();
+      form.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      if (res.ok) {
+        const data = await res.json();
+        setProfileImage(data.url);
+        // also keep local copy for offline fallback
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          localStorage.setItem('urii_portfolio_photo', base64String);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        console.error('Upload failed');
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
