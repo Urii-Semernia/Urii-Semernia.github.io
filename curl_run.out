@@ -1,0 +1,27 @@
+=== CURL START: пятница, 26 декабря 2025 г. 14:41:01 (CET) ===
+CURL:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+CURL:                                  Dload  Upload   Total   Spent    Left  Speed
+CURL:   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:3000...
+CURL: * Connected to 127.0.0.1 (127.0.0.1) port 3000
+CURL: > GET / HTTP/1.1
+CURL: > Host: 127.0.0.1:3000
+CURL: > User-Agent: curl/8.4.0
+CURL: > Accept: */*
+CURL: > 
+CURL:   0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0* Operation timed out after 10006 milliseconds with 0 bytes received
+CURL:   0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0
+CURL: * Closing connection
+CURL: curl: (28) Operation timed out after 10006 milliseconds with 0 bytes received
+=== CURL END ===
+
+=== LAST DEV.LOG LINES ===
+
+> urii-semernia-portfolio@0.0.0 dev
+> vite
+
+
+  VITE v6.4.1  ready in 341 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://192.168.2.32:3000/
+  ➜  press h + enter to show help
