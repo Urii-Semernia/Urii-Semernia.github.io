@@ -1,8 +1,33 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../constants';
 
 const Contact: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    // Simulate sending email
+    alert(`Thank you, ${formData.name}! Your message has been sent to ${PERSONAL_INFO.email}.\n\nMessage: ${formData.message}`);
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
+  };
   return (
     <footer id="contact" className="pt-24 pb-12 bg-zinc-950 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
@@ -33,20 +58,41 @@ const Contact: React.FC = () => {
           </div>
 
           <div className="glass p-10 rounded-3xl border-zinc-800">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-mono text-zinc-500 uppercase">Your Name</label>
-                  <input type="text" placeholder="John Doe" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" />
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="John Doe" 
+                    className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" 
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-mono text-zinc-500 uppercase">Your Email</label>
-                  <input type="email" placeholder="john@example.com" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="john@example.com" 
+                    className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" 
+                  />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-mono text-zinc-500 uppercase">Message</label>
-                <textarea rows={4} placeholder="What can I help you with?" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors resize-none" />
+                <textarea 
+                  rows={4} 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder="What can I help you with?" 
+                  className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors resize-none" 
+                />
               </div>
               <button className="w-full py-4 bg-cyan-500 hover:bg-cyan-600 text-black font-black text-lg rounded-xl transition-all active:scale-95">
                 Send Message
