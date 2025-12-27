@@ -49,8 +49,8 @@ const Hero: React.FC = () => {
               className="font-mono text-sm tracking-wide font-bold"
             />
           </div>
-          <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-            <AnimatedGradientText text="Elevating Software" /> <br />
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+            <AnimatedGradientText text="Elevating Software" /> <br className="hidden sm:block" />
             <AnimatedGradientText text="Quality Standards" delay={0.3} />
           </h1>
           <p className="text-zinc-400 text-lg mb-10 max-w-lg leading-relaxed">
