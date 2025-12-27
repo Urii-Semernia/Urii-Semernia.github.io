@@ -94,9 +94,9 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Floating stats card - positioned to the right of photo, not overlapping */}
-          <div className="absolute left-full bottom-0 ml-2 sm:ml-4 pointer-events-auto z-20 experience-card-wrapper" style={{ transform: 'translateY(25%)' }}>
-            <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group min-w-[120px] w-[140px] animate-experience-card relative">
+          {/* Floating stats card - positioned at bottom-right corner, partially outside photo */}
+          <div className="absolute bottom-0 right-0 pointer-events-auto z-20 experience-card-wrapper">
+            <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group w-[120px] sm:w-[140px] animate-experience-card relative">
                 {/* Animated glow background */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
                 

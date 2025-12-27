@@ -61,18 +61,48 @@
   }
 }
 
-/* Experience card wrapper - positioned outside photo */
+/* Experience card wrapper - positioned at bottom-right, partially outside photo */
 .experience-card-wrapper {
-  /* Base positioning done via inline style */
+  transform: translate(15%, 30%);
 }
 
-/* Experience card animation - only vertical floating, preserves base transform */
+/* Experience card animation - vertical floating that preserves base transform */
 @keyframes experience-float {
   0%, 100% {
-    transform: translateY(0);
+    transform: translate(30%, 30%) translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translate(30%, 30%) translateY(-10px);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes experience-float {
+    0%, 100% {
+      transform: translate(25%, 25%) translateY(0);
+    }
+    50% {
+      transform: translate(25%, 25%) translateY(-10px);
+    }
+  }
+  
+  .experience-card-wrapper {
+    transform: translate(25%, 25%) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes experience-float {
+    0%, 100% {
+      transform: translate(20%, 20%) translateY(0);
+    }
+    50% {
+      transform: translate(20%, 20%) translateY(-10px);
+    }
+  }
+  
+  .experience-card-wrapper {
+    transform: translate(20%, 20%) !important;
   }
 }
 
