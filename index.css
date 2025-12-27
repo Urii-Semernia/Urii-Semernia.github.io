@@ -61,23 +61,18 @@
   }
 }
 
-.experience-card-wrapper {
-  /* Positioned to partially overlap bottom-right of photo, but stay within bounds */
-  transform: translate(0%, 30%);
-  max-width: calc(100% + 1rem);
+/* Debug class - you can find this in DevTools by searching for "experience-card-debug" */
+.experience-card-debug {
+  /* This class helps identify the element in DevTools */
 }
 
-@media (min-width: 640px) {
-  .experience-card-wrapper {
-    transform: translate(15%, 25%);
-    max-width: calc(100% + 2rem);
+/* Experience card animation - only vertical floating, no horizontal movement */
+@keyframes experience-float {
+  0%, 100% {
+    transform: translateY(0);
   }
-}
-
-@media (min-width: 1024px) {
-  .experience-card-wrapper {
-    transform: translate(30%, 20%);
-    max-width: calc(100% + 3rem);
+  50% {
+    transform: translateY(-10px);
   }
 }
 

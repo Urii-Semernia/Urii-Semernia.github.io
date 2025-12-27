@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] overflow-visible">
+          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem]">
             {/* Aesthetic Glow */}
             <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl hover:bg-cyan-500/50 transition-all duration-500"></div>
             
@@ -86,14 +86,14 @@ const Hero: React.FC = () => {
               />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
-              <div className="absolute bottom-6 left-6 right-28 sm:right-32 lg:right-36 pointer-events-none z-20">
+              <div className="absolute bottom-6 left-6 right-32 sm:right-36 lg:right-40 pointer-events-none z-20">
                 <p className="text-white font-bold text-xl">{PERSONAL_INFO.name}</p>
                 <p className="text-cyan-400 text-sm font-mono tracking-wider">{PERSONAL_INFO.title}</p>
               </div>
             </div>
 
-            {/* Floating stats card - positioned outside photo bounds, won't overlap image */}
-            <div className="absolute bottom-0 right-0 pointer-events-none z-30 experience-card-wrapper">
+            {/* Floating stats card - positioned outside photo, below and to the right */}
+            <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 lg:-bottom-4 lg:-right-4 pointer-events-auto z-30 experience-card-debug">
                 <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group min-w-[120px] animate-experience-card relative">
                     {/* Animated glow background */}
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
