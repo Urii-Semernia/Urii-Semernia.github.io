@@ -1,47 +1,15 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../constants';
 
 const Hero: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Load image from localStorage on mount
+  // Load image on mount
   useEffect(() => {
-    // Always use default profile.jpg for static deployment
+    // Always use default profile.jpg
     setProfileImage('/profile.jpg');
   }, []);
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // upload to backend
-    try {
-      const form = new FormData();
-      form.append('file', file);
-      const res = await fetch('/api/upload', { method: 'POST', body: form });
-      if (res.ok) {
-        const data = await res.json();
-        setProfileImage(data.url);
-        // also keep local copy for offline fallback
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64String = reader.result as string;
-          localStorage.setItem('urii_portfolio_photo', base64String);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        console.error('Upload failed');
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
 
   return (
     <section id="about" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -78,39 +46,17 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative group cursor-pointer" onClick={triggerFileInput}>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              className="hidden" 
-              accept="image/*" 
-              onChange={handleImageUpload} 
-            />
-            
+          <div className="relative">
             {/* Aesthetic Glow */}
-            <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl group-hover:bg-cyan-500/40 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl hover:bg-cyan-500/50 transition-all duration-500"></div>
             
-            <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] rounded-[2.5rem] overflow-hidden border-4 border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-              {profileImage ? (
-                <img 
-                  src={profileImage} 
-                  alt={PERSONAL_INFO.name} 
-                  className="w-full h-full object-cover transition-all duration-500"
-                />
-              ) : (
-                <div className="w-full h-full bg-zinc-900 flex flex-col items-center justify-center text-zinc-600 gap-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  <p className="text-sm font-mono uppercase tracking-widest px-8 text-center">Click to upload your professional photo</p>
-                </div>
-              )}
+            <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] rounded-[2.5rem] overflow-hidden border-4 border-zinc-800 shadow-2xl transition-all duration-500 hover:scale-105 hover:rotate-2 hover:brightness-110">
+              <img 
+                src={profileImage} 
+                alt={PERSONAL_INFO.name} 
+                className="w-full h-full object-cover transition-all duration-500 hover:scale-110"
+              />
               
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                <div className="bg-white/10 p-4 rounded-full border border-white/20">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                </div>
-              </div>
-
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
               <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
                 <p className="text-white font-bold text-xl">{PERSONAL_INFO.name}</p>
