@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   title: 'Quality Assurance Engineer',
   email: 'uriisemernya@gmail.com',
   summary: 'Highly experienced Quality Assurance Engineer, specializing in testing web and mobile applications. Expert in Agile Scrum teams, guiding QA activities and guiding QA team members using Kanban methodology to successfully release products.',
-  linkedIn: 'https://linkedin.com',
+  linkedIn: 'https://www.linkedin.com/in/uriisemernya',
   telegram: 'https://t.me/uriisemernya',
   whatsapp: 'https://wa.me/uriisemernya'
 };

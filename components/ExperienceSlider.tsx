@@ -17,27 +17,30 @@ const ExperienceSlider: React.FC = () => {
             <button 
               onClick={() => setActiveIdx(prev => Math.max(0, prev - 1))}
               disabled={activeIdx === 0}
+              aria-label="Previous experience"
               className={`w-14 h-14 rounded-full border border-zinc-700 flex items-center justify-center transition-all ${activeIdx === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-cyan-500 hover:text-black hover:border-cyan-500'}`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             <button 
               onClick={() => setActiveIdx(prev => Math.min(EXPERIENCES.length - 1, prev + 1))}
               disabled={activeIdx === EXPERIENCES.length - 1}
+              aria-label="Next experience"
               className={`w-14 h-14 rounded-full border border-zinc-700 flex items-center justify-center transition-all ${activeIdx === EXPERIENCES.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-cyan-500 hover:text-black hover:border-cyan-500'}`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
         </div>
 
-        <div className="relative overflow-hidden min-h-[500px]">
+        <div className="relative overflow-hidden min-h-[500px]" role="region" aria-label="Work experience">
           <div 
             className="flex transition-transform duration-700 ease-in-out" 
             style={{ transform: `translateX(-${activeIdx * 100}%)` }}
+            role="list"
           >
             {EXPERIENCES.map((exp, idx) => (
-              <div key={idx} className="w-full shrink-0 px-2">
+              <div key={idx} className="w-full shrink-0 px-2" role="listitem" aria-current={idx === activeIdx ? 'true' : undefined}>
                 <div className="glass p-10 rounded-[3rem] border-zinc-800">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>

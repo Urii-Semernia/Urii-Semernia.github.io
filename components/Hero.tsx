@@ -3,13 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../constants';
 
 const Hero: React.FC = () => {
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<string>('/profile.jpg');
 
-  // Load image on mount
+  // Load image on mount and handle errors
   useEffect(() => {
     // Always use default profile.jpg
     setProfileImage('/profile.jpg');
   }, []);
+
+  const handleImageError = () => {
+    // Fallback to a placeholder or default avatar
+    setProfileImage('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzI3MjcyYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2E4YTliNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFWQVRBUjwvdGV4dD48L3N2Zz4=');
+  };
 
   return (
     <section id="about" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -30,10 +35,32 @@ const Hero: React.FC = () => {
             {PERSONAL_INFO.summary}
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-zinc-200 transition-all transform hover:-translate-y-1 active:scale-95">
+            <a 
+              href="/resume.pdf" 
+              download 
+              className="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-zinc-200 transition-all transform hover:-translate-y-1 active:scale-95"
+              onClick={(e) => {
+                // If file doesn't exist, prevent default and show message
+                e.preventDefault();
+                // Try to download, if fails, open contact section
+                fetch('/resume.pdf')
+                  .then(res => {
+                    if (res.ok) {
+                      window.open('/resume.pdf', '_blank');
+                    } else {
+                      alert('Resume file not found. Please contact me via email for a copy.');
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  })
+                  .catch(() => {
+                    alert('Resume file not found. Please contact me via email for a copy.');
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  });
+              }}
+            >
               Download Resume
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            </button>
+            </a>
             <div className="flex gap-4 items-center pl-4">
               <a href={PERSONAL_INFO.linkedIn} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl border border-zinc-800 flex items-center justify-center hover:bg-zinc-800 hover:border-zinc-600 transition-all transform hover:-translate-y-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
@@ -54,6 +81,7 @@ const Hero: React.FC = () => {
               <img 
                 src={profileImage} 
                 alt={PERSONAL_INFO.name} 
+                onError={handleImageError}
                 className="w-full h-full object-cover transition-all duration-500 hover:scale-110"
               />
               

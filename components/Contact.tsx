@@ -1,10 +1,6 @@
 
 import React, { useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { PERSONAL_INFO } from '../constants';
-
-// Initialize EmailJS with your public key
-emailjs.init('_qBBJgV2zBtKhtJ16'); // Replace with your EmailJS public key
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,22 +25,50 @@ const Contact: React.FC = () => {
       return;
     }
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     setIsSending(true);
     try {
-      await emailjs.send(
-        'service_eezucdv', // Your EmailJS service ID
-        'template_euydgy6', // Replace with your EmailJS template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_email: 'mister.semernya@gmail.com'
-        }
-      );
-      alert('Thank you! Your message has been sent successfully.');
-      setFormData({ name: '', email: '', message: '' });
+      // If Formspree form ID is not configured, use mailto as fallback
+      const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
+      
+      if (formspreeFormId === 'YOUR_FORM_ID') {
+        // Fallback to mailto link
+        const subject = encodeURIComponent(`Contact from ${formData.name}`);
+        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+        window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+        alert('Opening email client...');
+        setFormData({ name: '', email: '', message: '' });
+        setIsSending(false);
+        return;
+      }
+
+      const response = await fetch(`https://formspree.io/f/${formspreeFormId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
+
+      if (response.ok) {
+        alert('Thank you! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Form submission failed');
+      }
     } catch (error) {
-      console.error('Email send failed:', error);
+      console.error('Form send failed:', error);
       alert('Sorry, there was an error sending your message. Please try again or contact directly via email.');
     } finally {
       setIsSending(false);
@@ -83,36 +107,45 @@ const Contact: React.FC = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-mono text-zinc-500 uppercase">Your Name</label>
+                  <label htmlFor="contact-name" className="text-sm font-mono text-zinc-500 uppercase">Your Name</label>
                   <input 
                     type="text" 
                     name="name"
+                    id="contact-name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="John Doe" 
+                    placeholder="John Doe"
+                    required
+                    aria-required="true"
                     className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" 
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-mono text-zinc-500 uppercase">Your Email</label>
+                  <label htmlFor="contact-email" className="text-sm font-mono text-zinc-500 uppercase">Your Email</label>
                   <input 
                     type="email" 
                     name="email"
+                    id="contact-email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="john@example.com" 
+                    placeholder="john@example.com"
+                    required
+                    aria-required="true"
                     className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors" 
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-mono text-zinc-500 uppercase">Message</label>
+                <label htmlFor="contact-message" className="text-sm font-mono text-zinc-500 uppercase">Message</label>
                 <textarea 
                   rows={4} 
                   name="message"
+                  id="contact-message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  placeholder="What can I help you with?" 
+                  placeholder="What can I help you with?"
+                  required
+                  aria-required="true"
                   className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors resize-none" 
                 />
               </div>
