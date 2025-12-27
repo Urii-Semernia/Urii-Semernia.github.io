@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../constants';
+import AnimatedGradientText from './AnimatedGradientText';
 
 const Hero: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string>('/profile.jpg');
@@ -43,11 +44,14 @@ const Hero: React.FC = () => {
           </div>
           
           <div className="inline-block px-3 py-1 bg-zinc-800 rounded-lg mb-6 border border-zinc-700">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto] font-mono text-sm tracking-wide font-bold">Available for projects</span>
+            <AnimatedGradientText 
+              text="Available for projects" 
+              className="font-mono text-sm tracking-wide font-bold"
+            />
           </div>
           <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">Elevating Software</span> <br />
-            <span className="bg-gradient-to-r from-purple-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]" style={{ animationDelay: '0.5s' }}>Quality Standards</span>
+            <AnimatedGradientText text="Elevating Software" /> <br />
+            <AnimatedGradientText text="Quality Standards" delay={0.3} />
           </h1>
           <p className="text-zinc-400 text-lg mb-10 max-w-lg leading-relaxed">
             {PERSONAL_INFO.summary}

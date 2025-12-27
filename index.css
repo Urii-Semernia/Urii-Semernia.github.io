@@ -14,6 +14,30 @@
   animation: gradient 3s ease infinite;
 }
 
+/* Animated gradient for each character - running letters effect */
+@keyframes gradient-char {
+  0%, 100% {
+    background-position: 0% 50%;
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+}
+
+.animate-gradient-char {
+  animation: gradient-char 2s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform, background-position;
+}
+
 /* Cool floating animation for experience card - only vertical movement */
 @keyframes experience-float {
   0%, 100% {
