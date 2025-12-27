@@ -61,48 +61,13 @@
   }
 }
 
-/* Experience card wrapper - positioned below photo, to the right but within screen */
-.experience-card-wrapper {
-  transform: translate(-50%, 80%);
-}
-
-/* Experience card animation - vertical floating that preserves base transform */
+/* Experience card animation - simple vertical floating */
 @keyframes experience-float {
   0%, 100% {
-    transform: translate(-50%, 80%) translateY(0);
+    transform: translateY(0);
   }
   50% {
-    transform: translate(-50%, 80%) translateY(-10px);
-  }
-}
-
-@media (min-width: 640px) {
-  .experience-card-wrapper {
-    transform: translate(-30%, 60%);
-  }
-  
-  @keyframes experience-float {
-    0%, 100% {
-      transform: translate(-30%, 60%) translateY(0);
-    }
-    50% {
-      transform: translate(-30%, 60%) translateY(-10px);
-    }
-  }
-}
-
-@media (min-width: 1024px) {
-  .experience-card-wrapper {
-    transform: translate(-20%, 50%);
-  }
-  
-  @keyframes experience-float {
-    0%, 100% {
-      transform: translate(-20%, 50%) translateY(0);
-    }
-    50% {
-      transform: translate(-20%, 50%) translateY(-10px);
-    }
+    transform: translateY(-10px);
   }
 }
 

@@ -24,6 +24,24 @@ const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <div className="order-2 md:order-1">
+          {/* Experience card - between photo and Available for projects text */}
+          <div className="flex justify-center mb-6 md:hidden">
+            <div className="glass p-4 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group w-[140px] animate-experience-card relative">
+                {/* Animated glow background */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  <p className="text-2xl font-bold text-white animate-number-bounce">4+</p>
+                  <p className="text-zinc-400 text-[10px] uppercase tracking-widest font-bold mt-1">Years Experience</p>
+                </div>
+                
+                {/* Sparkle effect */}
+                <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
+                <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
+            </div>
+          </div>
+          
           <div className="inline-block px-3 py-1 bg-zinc-800 rounded-lg mb-6 border border-zinc-700">
             <span className="text-cyan-400 font-mono text-sm tracking-wide">Available for projects</span>
           </div>
@@ -72,7 +90,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        <div className="order-1 md:order-2 flex justify-center relative">
+        <div className="order-1 md:order-2 flex flex-col items-center gap-6">
           {/* Photo container */}
           <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] z-10">
             {/* Aesthetic Glow */}
@@ -94,16 +112,16 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Floating stats card - positioned below photo, shifted right but within screen */}
-          <div className="absolute bottom-0 right-0 pointer-events-auto z-20 experience-card-wrapper">
-            <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group w-[120px] sm:w-[140px] animate-experience-card relative">
+          {/* Experience card - shown on desktop between photo and text */}
+          <div className="hidden md:flex justify-center">
+            <div className="glass p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group w-[140px] animate-experience-card relative">
                 {/* Animated glow background */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
                 
                 {/* Content */}
                 <div className="relative z-10">
-                  <p className="text-2xl sm:text-3xl font-bold text-white animate-number-bounce">4+</p>
-                  <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
+                  <p className="text-3xl font-bold text-white animate-number-bounce">4+</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
                 </div>
                 
                 {/* Sparkle effect */}
