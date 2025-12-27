@@ -4,20 +4,11 @@ import { PERSONAL_INFO } from '../constants';
 
 const Hero: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string>('/profile.jpg');
-  const [showBounce, setShowBounce] = useState(false);
 
   // Load image on mount and handle errors
   useEffect(() => {
     // Always use default profile.jpg
     setProfileImage('/profile.jpg');
-    
-    // Trigger bounce animation 5 times on mount
-    setShowBounce(true);
-    const timer = setTimeout(() => {
-      setShowBounce(false);
-    }, 3100); // Animation duration: 3s + 100ms buffer
-    
-    return () => clearTimeout(timer);
   }, []);
 
   const handleImageError = () => {
@@ -101,10 +92,20 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Floating stats card */}
-            <div className={`absolute -bottom-6 -right-6 lg:-right-12 glass p-6 rounded-2xl border border-white/10 shadow-2xl pointer-events-none ${showBounce ? 'animate-bounce-5' : ''}`}>
-                <p className="text-3xl font-bold text-white">4+</p>
-                <p className="text-zinc-400 text-xs uppercase tracking-widest font-bold">Years Experience</p>
+            {/* Floating stats card with cool animation */}
+            <div className="absolute -bottom-6 -right-6 lg:-right-12 glass p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 pointer-events-none animate-experience-card group">
+                {/* Animated glow background */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  <p className="text-3xl font-bold text-white animate-number-bounce">4+</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
+                </div>
+                
+                {/* Sparkle effect */}
+                <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
+                <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
             </div>
           </div>
         </div>

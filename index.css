@@ -14,48 +14,72 @@
   animation: gradient 3s ease infinite;
 }
 
-/* Bounce animation exactly 5 times */
-@keyframes bounce-5 {
-  0% {
-    transform: translateY(0);
+/* Cool floating animation for experience card */
+@keyframes experience-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
   }
-  8% {
-    transform: translateY(-25%);
-  }
-  16% {
-    transform: translateY(0);
-  }
-  24% {
-    transform: translateY(-25%);
-  }
-  32% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-25%);
-  }
-  48% {
-    transform: translateY(0);
-  }
-  56% {
-    transform: translateY(-25%);
-  }
-  64% {
-    transform: translateY(0);
-  }
-  72% {
-    transform: translateY(-25%);
-  }
-  80% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(0);
+  50% {
+    transform: translateY(-15px) scale(1.02);
   }
 }
 
-.animate-bounce-5 {
-  animation: bounce-5 3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  animation-iteration-count: 1;
+@keyframes number-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.1);
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-experience-card {
+  animation: experience-float 4s ease-in-out infinite;
+}
+
+.animate-number-bounce {
+  animation: number-bounce 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.animate-sparkle-delayed {
+  animation: sparkle 2.5s ease-in-out infinite;
+  animation-delay: 1s;
 }
 
