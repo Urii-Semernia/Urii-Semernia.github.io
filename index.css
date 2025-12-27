@@ -132,9 +132,25 @@
 }
 
 /* Advanced slider animations */
-.perspective-container {
-  perspective: 1200px;
+.perspective-container,
+.perspective-1000 {
+  perspective: 1000px;
   transform-style: preserve-3d;
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+    opacity: 0.5;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
 }
 
 @keyframes pulse-slider {
@@ -177,5 +193,20 @@
 
 .rotate-y-0 {
   transform: rotateY(0deg);
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+    opacity: 0.5;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
 }
 
