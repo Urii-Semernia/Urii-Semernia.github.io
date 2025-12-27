@@ -86,14 +86,14 @@ const Hero: React.FC = () => {
               />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
-              <div className="absolute bottom-6 left-6 right-6 sm:right-24 pointer-events-none z-20">
+              <div className="absolute bottom-6 left-6 right-28 sm:right-32 lg:right-36 pointer-events-none z-20">
                 <p className="text-white font-bold text-xl">{PERSONAL_INFO.name}</p>
                 <p className="text-cyan-400 text-sm font-mono tracking-wider">{PERSONAL_INFO.title}</p>
               </div>
             </div>
 
-            {/* Floating stats card with cool animation - positioned to not overlap text */}
-            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 lg:-bottom-8 lg:-right-12 glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 pointer-events-none animate-experience-card group z-30">
+            {/* Floating stats card - positioned completely outside photo container */}
+            <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 lg:-bottom-6 lg:-right-12 glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 pointer-events-none animate-experience-card group z-30">
                 {/* Animated glow background */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
                 
