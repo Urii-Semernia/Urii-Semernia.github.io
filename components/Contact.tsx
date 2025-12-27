@@ -1,10 +1,6 @@
 
 import React, { useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { PERSONAL_INFO } from '../constants';
-
-// Initialize EmailJS with your public key
-emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,20 +27,26 @@ const Contact: React.FC = () => {
 
     setIsSending(true);
     try {
-      await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_email: 'mister.semernya@gmail.com'
-        }
-      );
-      alert('Thank you! Your message has been sent successfully.');
-      setFormData({ name: '', email: '', message: '' });
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', { // Replace YOUR_FORM_ID with your Formspree form ID
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
+
+      if (response.ok) {
+        alert('Thank you! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
-      console.error('Email send failed:', error);
+      console.error('Form send failed:', error);
       alert('Sorry, there was an error sending your message. Please try again or contact directly via email.');
     } finally {
       setIsSending(false);
