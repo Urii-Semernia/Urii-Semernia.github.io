@@ -46,7 +46,6 @@ const Navbar: React.FC = () => {
           mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`} style={{ transitionDelay: '100ms' }}>
           {[
-            { href: '#about', label: 'About' },
             { href: '#skills', label: 'Skills' },
             { href: '#experience', label: 'Experience' },
             { href: '#contact', label: 'Contact' }
