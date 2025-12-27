@@ -4,11 +4,20 @@ import { PERSONAL_INFO } from '../constants';
 
 const Hero: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string>('/profile.jpg');
+  const [showBounce, setShowBounce] = useState(false);
 
   // Load image on mount and handle errors
   useEffect(() => {
     // Always use default profile.jpg
     setProfileImage('/profile.jpg');
+    
+    // Trigger bounce animation 5 times on mount
+    setShowBounce(true);
+    const timer = setTimeout(() => {
+      setShowBounce(false);
+    }, 3100); // Animation duration: 3s + 100ms buffer
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const handleImageError = () => {
@@ -93,8 +102,8 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Floating stats card */}
-            <div className="absolute -bottom-6 -right-6 lg:-right-12 glass p-6 rounded-2xl border border-white/10 shadow-2xl animate-bounce pointer-events-none">
-                <p className="text-3xl font-bold text-white">3+</p>
+            <div className={`absolute -bottom-6 -right-6 lg:-right-12 glass p-6 rounded-2xl border border-white/10 shadow-2xl pointer-events-none ${showBounce ? 'animate-bounce-5' : ''}`}>
+                <p className="text-3xl font-bold text-white">4+</p>
                 <p className="text-zinc-400 text-xs uppercase tracking-widest font-bold">Years Experience</p>
             </div>
           </div>

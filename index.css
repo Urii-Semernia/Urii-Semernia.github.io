@@ -14,3 +14,48 @@
   animation: gradient 3s ease infinite;
 }
 
+/* Bounce animation exactly 5 times */
+@keyframes bounce-5 {
+  0% {
+    transform: translateY(0);
+  }
+  8% {
+    transform: translateY(-25%);
+  }
+  16% {
+    transform: translateY(0);
+  }
+  24% {
+    transform: translateY(-25%);
+  }
+  32% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-25%);
+  }
+  48% {
+    transform: translateY(0);
+  }
+  56% {
+    transform: translateY(-25%);
+  }
+  64% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(-25%);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-5 {
+  animation: bounce-5 3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-iteration-count: 1;
+}
+
