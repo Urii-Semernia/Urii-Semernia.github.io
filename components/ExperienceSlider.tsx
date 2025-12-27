@@ -1,47 +1,152 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { EXPERIENCES } from '../constants';
+
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  alpha: number;
+  size: number;
+  color: string;
+}
 
 const ExperienceSlider: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [prevIdx, setPrevIdx] = useState(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const particlesRef = useRef<Particle[]>([]);
+  const animationFrameRef = useRef<number>();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const handleResize = () => {
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const explode = (element: HTMLDivElement) => {
+    const rect = element.getBoundingClientRect();
+    const ctx = canvasRef.current?.getContext('2d');
+    if (!ctx) return;
+
+    const colors = ['#22d3ee', '#60a5fa', '#818cf8', '#a78bfa']; // cyan, blue, purple colors
+    particlesRef.current = [];
+
+    // Create particles from the slide element
+    const particleSize = 4;
+    for (let y = 0; y < rect.height; y += particleSize * 2) {
+      for (let x = 0; x < rect.width; x += particleSize * 2) {
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        particlesRef.current.push({
+          x: rect.left + x,
+          y: rect.top + y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8 - 2, // Slight upward bias
+          alpha: 0.8 + Math.random() * 0.2,
+          size: particleSize + Math.random() * 2,
+          color: colors[colorIndex]
+        });
+      }
+    }
+
+    animateParticles();
+  };
+
+  const animateParticles = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx || particlesRef.current.length === 0) {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particlesRef.current.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.2; // Gravity effect
+      p.alpha -= 0.015;
+      p.vx *= 0.98; // Friction
+      p.vy *= 0.98;
+
+      ctx.fillStyle = `${p.color}${Math.floor(p.alpha * 255).toString(16).padStart(2, '0')}`;
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    });
+
+    particlesRef.current = particlesRef.current.filter((p) => p.alpha > 0);
+
+    if (particlesRef.current.length > 0) {
+      animationFrameRef.current = requestAnimationFrame(animateParticles);
+    } else {
+      setIsAnimating(false);
+    }
+  };
 
   const handlePrev = () => {
     if (activeIdx > 0 && !isAnimating) {
-      setPrevIdx(activeIdx);
-      setIsAnimating(true);
-      setTimeout(() => {
-        setActiveIdx(prev => prev - 1);
-        setTimeout(() => setIsAnimating(false), 900);
-      }, 300);
+      const currentSlide = slideRefs.current[activeIdx];
+      if (currentSlide) {
+        explode(currentSlide);
+        setIsAnimating(true);
+        setTimeout(() => {
+          setActiveIdx((prev) => prev - 1);
+        }, 100);
+      }
     }
   };
 
   const handleNext = () => {
     if (activeIdx < EXPERIENCES.length - 1 && !isAnimating) {
-      setPrevIdx(activeIdx);
-      setIsAnimating(true);
-      setTimeout(() => {
-        setActiveIdx(prev => prev + 1);
-        setTimeout(() => setIsAnimating(false), 900);
-      }, 300);
+      const currentSlide = slideRefs.current[activeIdx];
+      if (currentSlide) {
+        explode(currentSlide);
+        setIsAnimating(true);
+        setTimeout(() => {
+          setActiveIdx((prev) => prev + 1);
+        }, 100);
+      }
     }
   };
 
   const goToSlide = (idx: number) => {
     if (idx !== activeIdx && !isAnimating) {
-      setPrevIdx(activeIdx);
-      setIsAnimating(true);
-      setTimeout(() => {
-        setActiveIdx(idx);
-        setTimeout(() => setIsAnimating(false), 900);
-      }, 300);
+      const currentSlide = slideRefs.current[activeIdx];
+      if (currentSlide) {
+        explode(currentSlide);
+        setIsAnimating(true);
+        setTimeout(() => {
+          setActiveIdx(idx);
+        }, 100);
+      }
     }
   };
 
   return (
     <section id="experience" className="py-24 relative overflow-hidden">
+      {/* Canvas for particles */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-50"
+        style={{ mixBlendMode: 'screen' }}
+      />
+
       {/* Animated background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse"></div>
@@ -84,13 +189,12 @@ const ExperienceSlider: React.FC = () => {
         <div className="relative min-h-[500px] md:min-h-[600px] overflow-hidden rounded-3xl">
           {EXPERIENCES.map((exp, idx) => {
             const isActive = idx === activeIdx;
-            const isExiting = isAnimating && idx === prevIdx;
-            const isEntering = isAnimating && idx === activeIdx && idx !== prevIdx;
             
             return (
               <div
                 key={idx}
-                className={`absolute inset-0 transition-all duration-500 ${
+                ref={(el) => (slideRefs.current[idx] = el)}
+                className={`absolute inset-0 transition-opacity duration-300 ${
                   isActive 
                     ? 'opacity-100 z-20' 
                     : 'opacity-0 z-10 pointer-events-none'
@@ -102,20 +206,19 @@ const ExperienceSlider: React.FC = () => {
                   isActive 
                     ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/30 bg-zinc-900/80' 
                     : 'border-zinc-800/30 bg-zinc-900/40'
-                } ${isExiting ? 'sand-exit' : ''} ${isEntering ? 'sand-enter' : ''}`}>
-                  {/* Content */}
-                  <div className="relative z-10 h-full flex flex-col">
+                }`}>
+                  <div className="h-full flex flex-col">
                     {/* Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-4">
                       <div className="flex-1">
                         <h3 className={`text-3xl md:text-4xl font-extrabold text-white mb-3 transition-all duration-700 ${
                           isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                        }`} style={{ transitionDelay: isActive && !isAnimating ? '400ms' : '0ms' }}>
+                        }`} style={{ transitionDelay: isActive ? '400ms' : '0ms' }}>
                           {exp.company}
                         </h3>
                         <div className={`flex flex-wrap items-center gap-2 text-cyan-400 font-mono transition-all duration-700 ${
                           isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                        }`} style={{ transitionDelay: isActive && !isAnimating ? '500ms' : '0ms' }}>
+                        }`} style={{ transitionDelay: isActive ? '500ms' : '0ms' }}>
                           <span className="text-base md:text-lg font-bold">{exp.role}</span>
                           <span className="w-1 h-1 bg-cyan-500 rounded-full animate-pulse"></span>
                           <span className="text-sm">{exp.location}</span>
@@ -123,7 +226,7 @@ const ExperienceSlider: React.FC = () => {
                       </div>
                       <div className={`px-5 py-2 bg-zinc-800/50 rounded-full border border-cyan-500/30 text-sm font-bold text-zinc-300 transition-all duration-700 transform ${
                         isActive ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-90 rotate-12'
-                      }`} style={{ transitionDelay: isActive && !isAnimating ? '600ms' : '0ms' }}>
+                      }`} style={{ transitionDelay: isActive ? '600ms' : '0ms' }}>
                         {exp.period}
                       </div>
                     </div>
@@ -137,7 +240,7 @@ const ExperienceSlider: React.FC = () => {
                             className={`flex gap-4 group transition-all duration-700 ${
                               isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
                             }`}
-                            style={{ transitionDelay: isActive && !isAnimating ? `${700 + aIdx * 100}ms` : '0ms' }}
+                            style={{ transitionDelay: isActive ? `${700 + aIdx * 100}ms` : '0ms' }}
                           >
                             <div className="mt-1 w-5 h-5 shrink-0 rounded-full border-2 border-cyan-500/40 flex items-center justify-center group-hover:border-cyan-500 group-hover:bg-cyan-500/20 group-hover:scale-125 transition-all duration-300 relative">
                               <div className="w-2 h-2 rounded-full bg-cyan-500 group-hover:scale-150 transition-transform duration-300"></div>
@@ -149,7 +252,7 @@ const ExperienceSlider: React.FC = () => {
                       </div>
                       <div className={`hidden md:flex flex-col justify-center items-end transition-all duration-700 ${
                         isActive ? 'opacity-20 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`} style={{ transitionDelay: isActive && !isAnimating ? '900ms' : '0ms' }}>
+                      }`} style={{ transitionDelay: isActive ? '900ms' : '0ms' }}>
                         <span className="text-8xl font-black italic bg-gradient-to-r from-cyan-500/30 via-blue-500/30 to-purple-500/30 bg-clip-text text-transparent">
                           0{idx + 1}
                         </span>
