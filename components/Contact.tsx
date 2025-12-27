@@ -66,14 +66,10 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-zinc-900 pt-12 gap-6">
+        <div className="flex justify-center items-center border-t border-zinc-900 pt-12">
           <p className="text-zinc-500 text-sm">
             © {new Date().getFullYear()} {PERSONAL_INFO.name}. Built for excellence.
           </p>
-          <div className="flex gap-8 text-sm text-zinc-400 font-mono uppercase tracking-widest">
-            <span className="hover:text-cyan-400 cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-cyan-400 cursor-pointer">Terms of Service</span>
-          </div>
         </div>
       </div>
     </footer>
