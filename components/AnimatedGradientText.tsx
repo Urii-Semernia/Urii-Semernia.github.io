@@ -12,7 +12,7 @@ const AnimatedGradientText: React.FC<AnimatedGradientTextProps> = ({
   delay = 0 
 }) => {
   return (
-    <span className={`${className} inline-block`}>
+    <span className={`${className} inline-block whitespace-nowrap`}>
       {text.split('').map((char, index) => (
         <span
           key={index}

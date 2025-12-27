@@ -50,8 +50,12 @@ const Hero: React.FC = () => {
             />
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-            <AnimatedGradientText text="Elevating Software" /> <br className="hidden sm:block" />
-            <AnimatedGradientText text="Quality Standards" delay={0.3} />
+            <div className="block">
+              <AnimatedGradientText text="Elevating Software" />
+            </div>
+            <div className="block">
+              <AnimatedGradientText text="Quality Standards" delay={0.3} />
+            </div>
           </h1>
           <p className="text-zinc-400 text-lg mb-10 max-w-lg leading-relaxed">
             {PERSONAL_INFO.summary}
