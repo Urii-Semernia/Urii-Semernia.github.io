@@ -1,2 +1,16 @@
 /* Additional styles if needed - most styles are in index.html */
 
+/* Animated gradient for logo */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+

@@ -2,7 +2,7 @@
 import { Skill, Experience, Education } from './types';
 
 export const PERSONAL_INFO = {
-  name: 'Urii Semernia',
+  name: 'Yurii Semernia',
   title: 'Quality Assurance Engineer',
   email: 'uriisemernya@gmail.com',
   summary: 'Highly experienced Quality Assurance Engineer, specializing in testing web and mobile applications. Expert in Agile Scrum teams, guiding QA activities and guiding QA team members using Kanban methodology to successfully release products.',
