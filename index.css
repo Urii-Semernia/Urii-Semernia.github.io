@@ -131,3 +131,51 @@
   animation: fade-scale 0.5s ease-out;
 }
 
+/* Advanced slider animations */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+@keyframes pulse-slider {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1) translate(10px, -10px);
+  }
+}
+
+.animate-pulse-slider {
+  animation: pulse-slider 8s ease-in-out infinite;
+}
+
+/* Smooth 3D transforms */
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+@keyframes rotate-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotate-y-5 {
+  transform: rotateY(5deg);
+}
+
+.-rotate-y-5 {
+  transform: rotateY(-5deg);
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
