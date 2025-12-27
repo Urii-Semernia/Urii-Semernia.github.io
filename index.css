@@ -17,10 +17,10 @@
 /* Cool floating animation for experience card */
 @keyframes experience-float {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) translateX(0);
   }
   50% {
-    transform: translateY(-15px) scale(1.02);
+    transform: translateY(-10px) scale(1.02) translateX(-5px);
   }
 }
 
