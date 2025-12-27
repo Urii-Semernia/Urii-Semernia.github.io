@@ -61,12 +61,12 @@
   }
 }
 
-/* Debug class - you can find this in DevTools by searching for "experience-card-debug" */
-.experience-card-debug {
-  /* This class helps identify the element in DevTools */
+/* Experience card wrapper - positioned outside photo */
+.experience-card-wrapper {
+  /* Base positioning done via inline style */
 }
 
-/* Experience card animation - only vertical floating, no horizontal movement */
+/* Experience card animation - only vertical floating, preserves base transform */
 @keyframes experience-float {
   0%, 100% {
     transform: translateY(0);

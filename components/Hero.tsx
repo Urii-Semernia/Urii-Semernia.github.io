@@ -72,8 +72,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem]">
+        <div className="order-1 md:order-2 flex justify-center relative">
+          {/* Photo container */}
+          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] z-10">
             {/* Aesthetic Glow */}
             <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl hover:bg-cyan-500/50 transition-all duration-500"></div>
             
@@ -91,23 +92,23 @@ const Hero: React.FC = () => {
                 <p className="text-cyan-400 text-sm font-mono tracking-wider">{PERSONAL_INFO.title}</p>
               </div>
             </div>
+          </div>
 
-            {/* Floating stats card - positioned outside photo, below and to the right */}
-            <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 lg:-bottom-4 lg:-right-4 pointer-events-auto z-30 experience-card-debug">
-                <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group min-w-[120px] animate-experience-card relative">
-                    {/* Animated glow background */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
-                    
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <p className="text-2xl sm:text-3xl font-bold text-white animate-number-bounce">4+</p>
-                      <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
-                    </div>
-                    
-                    {/* Sparkle effect */}
-                    <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
-                    <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
+          {/* Floating stats card - positioned to the right of photo, not overlapping */}
+          <div className="absolute left-full bottom-0 ml-2 sm:ml-4 pointer-events-auto z-20 experience-card-wrapper" style={{ transform: 'translateY(25%)' }}>
+            <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group min-w-[120px] w-[140px] animate-experience-card relative">
+                {/* Animated glow background */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  <p className="text-2xl sm:text-3xl font-bold text-white animate-number-bounce">4+</p>
+                  <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
                 </div>
+                
+                {/* Sparkle effect */}
+                <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
+                <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
             </div>
           </div>
         </div>
