@@ -73,11 +73,11 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative">
+          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem]">
             {/* Aesthetic Glow */}
             <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl hover:bg-cyan-500/50 transition-all duration-500"></div>
             
-            <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] rounded-[2.5rem] overflow-hidden border-4 border-zinc-800 shadow-2xl transition-all duration-500 hover:scale-105 hover:rotate-2 hover:brightness-110">
+            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-zinc-800 shadow-2xl transition-all duration-500 hover:scale-105 hover:rotate-2 hover:brightness-110">
               <img 
                 src={profileImage} 
                 alt={PERSONAL_INFO.name} 
@@ -92,20 +92,22 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Floating stats card - positioned completely outside photo container */}
-            <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 lg:-bottom-6 lg:-right-12 glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 pointer-events-none animate-experience-card group z-30">
-                {/* Animated glow background */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  <p className="text-2xl sm:text-3xl font-bold text-white animate-number-bounce">4+</p>
-                  <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
+            {/* Floating stats card - positioned outside photo bounds, won't overlap image */}
+            <div className="absolute bottom-0 right-0 pointer-events-none z-30 experience-card-wrapper">
+                <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group min-w-[120px] animate-experience-card relative">
+                    {/* Animated glow background */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 animate-glow-pulse"></div>
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <p className="text-2xl sm:text-3xl font-bold text-white animate-number-bounce">4+</p>
+                      <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-widest font-bold mt-1">Years Experience</p>
+                    </div>
+                    
+                    {/* Sparkle effect */}
+                    <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
+                    <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
                 </div>
-                
-                {/* Sparkle effect */}
-                <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400 rounded-full animate-sparkle"></div>
-                <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-sparkle-delayed"></div>
             </div>
           </div>
         </div>

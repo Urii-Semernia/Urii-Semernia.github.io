@@ -14,13 +14,13 @@
   animation: gradient 3s ease infinite;
 }
 
-/* Cool floating animation for experience card */
+/* Cool floating animation for experience card - only vertical movement */
 @keyframes experience-float {
   0%, 100% {
-    transform: translateY(0) scale(1) translateX(0);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px) scale(1.02) translateX(-5px);
+    transform: translateY(-10px);
   }
 }
 
@@ -58,6 +58,22 @@
   50% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.experience-card-wrapper {
+  transform: translate(50%, 50%);
+}
+
+@media (min-width: 640px) {
+  .experience-card-wrapper {
+    transform: translate(66.666667%, 33.333333%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-card-wrapper {
+    transform: translate(100%, 25%);
   }
 }
 
