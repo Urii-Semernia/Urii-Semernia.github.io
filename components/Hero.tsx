@@ -8,22 +8,8 @@ const Hero: React.FC = () => {
 
   // Load image from localStorage on mount
   useEffect(() => {
-    // First try to fetch persisted profile from backend
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch('/api/profile');
-        if (res.ok) {
-          const data = await res.json();
-          setProfileImage(data.url);
-          return;
-        }
-      } catch (e) {
-        // ignore
-      }
-      // Fallback to default profile.jpg
-      setProfileImage('/profile.jpg');
-    };
-    fetchProfile();
+    // Always use default profile.jpg for static deployment
+    setProfileImage('/profile.jpg');
   }, []);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
