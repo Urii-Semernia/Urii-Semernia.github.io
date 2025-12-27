@@ -43,11 +43,11 @@ const Hero: React.FC = () => {
           </div>
           
           <div className="inline-block px-3 py-1 bg-zinc-800 rounded-lg mb-6 border border-zinc-700">
-            <span className="text-cyan-400 font-mono text-sm tracking-wide">Available for projects</span>
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto] font-mono text-sm tracking-wide font-bold">Available for projects</span>
           </div>
           <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-            Elevating Software <br />
-            <span className="text-gradient">Quality Standards</span>
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">Elevating Software</span> <br />
+            <span className="bg-gradient-to-r from-purple-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]" style={{ animationDelay: '0.5s' }}>Quality Standards</span>
           </h1>
           <p className="text-zinc-400 text-lg mb-10 max-w-lg leading-relaxed">
             {PERSONAL_INFO.summary}

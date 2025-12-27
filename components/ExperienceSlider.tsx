@@ -157,7 +157,8 @@ const ExperienceSlider: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
             <h2 className="text-3xl lg:text-5xl font-bold mb-4">
-              Work <span className="text-gradient bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">History</span>
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">Work</span>{' '}
+              <span className="bg-gradient-to-r from-purple-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]" style={{ animationDelay: '0.5s' }}>History</span>
             </h2>
             <p className="text-zinc-500 max-w-xl">Deep diving into technical challenges across international borders.</p>
           </div>
