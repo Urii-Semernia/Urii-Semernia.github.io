@@ -1,6 +1,10 @@
 
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { PERSONAL_INFO } from '../constants';
+
+// Initialize EmailJS with your public key
+emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +12,7 @@ const Contact: React.FC = () => {
     email: '',
     message: ''
   });
+  const [isSending, setIsSending] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -17,16 +22,33 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       alert('Please fill in all fields.');
       return;
     }
-    // Simulate sending email
-    alert(`Thank you, ${formData.name}! Your message has been sent to ${PERSONAL_INFO.email}.\n\nMessage: ${formData.message}`);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: 'mister.semernya@gmail.com'
+        }
+      );
+      alert('Thank you! Your message has been sent successfully.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Email send failed:', error);
+      alert('Sorry, there was an error sending your message. Please try again or contact directly via email.');
+    } finally {
+      setIsSending(false);
+    }
   };
   return (
     <footer id="contact" className="pt-24 pb-12 bg-zinc-950 border-t border-zinc-900">
@@ -94,8 +116,12 @@ const Contact: React.FC = () => {
                   className="w-full bg-zinc-800/50 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors resize-none" 
                 />
               </div>
-              <button className="w-full py-4 bg-cyan-500 hover:bg-cyan-600 text-black font-black text-lg rounded-xl transition-all active:scale-95">
-                Send Message
+              <button 
+                type="submit" 
+                disabled={isSending}
+                className="w-full py-4 bg-cyan-500 hover:bg-cyan-600 disabled:bg-zinc-600 text-black font-black text-lg rounded-xl transition-all active:scale-95 disabled:cursor-not-allowed"
+              >
+                {isSending ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
