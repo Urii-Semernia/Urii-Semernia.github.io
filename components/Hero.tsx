@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem]">
+          <div className="relative w-72 h-96 lg:w-96 lg:h-[30rem] overflow-visible">
             {/* Aesthetic Glow */}
             <div className="absolute inset-0 bg-cyan-500/20 rounded-[2.5rem] blur-2xl hover:bg-cyan-500/50 transition-all duration-500"></div>
             

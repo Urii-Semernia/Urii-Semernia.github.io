@@ -62,18 +62,22 @@
 }
 
 .experience-card-wrapper {
-  transform: translate(50%, 50%);
+  /* Positioned to partially overlap bottom-right of photo, but stay within bounds */
+  transform: translate(0%, 30%);
+  max-width: calc(100% + 1rem);
 }
 
 @media (min-width: 640px) {
   .experience-card-wrapper {
-    transform: translate(66.666667%, 33.333333%);
+    transform: translate(15%, 25%);
+    max-width: calc(100% + 2rem);
   }
 }
 
 @media (min-width: 1024px) {
   .experience-card-wrapper {
-    transform: translate(100%, 25%);
+    transform: translate(30%, 20%);
+    max-width: calc(100% + 3rem);
   }
 }
 
