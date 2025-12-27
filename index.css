@@ -61,48 +61,48 @@
   }
 }
 
-/* Experience card wrapper - positioned at bottom-right, partially outside photo */
+/* Experience card wrapper - positioned below photo, to the right but within screen */
 .experience-card-wrapper {
-  transform: translate(15%, 30%);
+  transform: translate(-50%, 80%);
 }
 
 /* Experience card animation - vertical floating that preserves base transform */
 @keyframes experience-float {
   0%, 100% {
-    transform: translate(30%, 30%) translateY(0);
+    transform: translate(-50%, 80%) translateY(0);
   }
   50% {
-    transform: translate(30%, 30%) translateY(-10px);
+    transform: translate(-50%, 80%) translateY(-10px);
   }
 }
 
 @media (min-width: 640px) {
-  @keyframes experience-float {
-    0%, 100% {
-      transform: translate(25%, 25%) translateY(0);
-    }
-    50% {
-      transform: translate(25%, 25%) translateY(-10px);
-    }
+  .experience-card-wrapper {
+    transform: translate(-30%, 60%);
   }
   
-  .experience-card-wrapper {
-    transform: translate(25%, 25%) !important;
+  @keyframes experience-float {
+    0%, 100% {
+      transform: translate(-30%, 60%) translateY(0);
+    }
+    50% {
+      transform: translate(-30%, 60%) translateY(-10px);
+    }
   }
 }
 
 @media (min-width: 1024px) {
-  @keyframes experience-float {
-    0%, 100% {
-      transform: translate(20%, 20%) translateY(0);
-    }
-    50% {
-      transform: translate(20%, 20%) translateY(-10px);
-    }
+  .experience-card-wrapper {
+    transform: translate(-20%, 50%);
   }
   
-  .experience-card-wrapper {
-    transform: translate(20%, 20%) !important;
+  @keyframes experience-float {
+    0%, 100% {
+      transform: translate(-20%, 50%) translateY(0);
+    }
+    50% {
+      transform: translate(-20%, 50%) translateY(-10px);
+    }
   }
 }
 

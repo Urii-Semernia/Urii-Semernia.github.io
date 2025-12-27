@@ -87,14 +87,14 @@ const Hero: React.FC = () => {
               />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
-              <div className="absolute bottom-6 left-6 right-32 sm:right-36 lg:right-40 pointer-events-none z-20">
+              <div className="absolute bottom-6 left-6 right-6 pointer-events-none z-20">
                 <p className="text-white font-bold text-xl">{PERSONAL_INFO.name}</p>
                 <p className="text-cyan-400 text-sm font-mono tracking-wider">{PERSONAL_INFO.title}</p>
               </div>
             </div>
           </div>
 
-          {/* Floating stats card - positioned at bottom-right corner, partially outside photo */}
+          {/* Floating stats card - positioned below photo, shifted right but within screen */}
           <div className="absolute bottom-0 right-0 pointer-events-auto z-20 experience-card-wrapper">
             <div className="glass p-4 sm:p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 group w-[120px] sm:w-[140px] animate-experience-card relative">
                 {/* Animated glow background */}
